@@ -1,13 +1,13 @@
-package cl.duoc.innovatech.innovatech_microservicios_base;
+package cl.duoc.innovatech.servicioproyecto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InnovatechMicroserviciosBaseApplication {
+public class ServicioProyectoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InnovatechMicroserviciosBaseApplication.class, args);
+		SpringApplication.run(ServicioProyectoApplication.class, args);
 	}
 
 }

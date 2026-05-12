@@ -1,9 +1,9 @@
-# Innovatech Project Service
+# Innovatech Servicio Proyecto
 
 Microservicio de Gestión de Proyectos - Innovatech Solutions
 
 ## Tecnologías
-- Spring Boot 3.3
+- Spring Boot 4.0.6
 - Java 25
 - JPA + PostgreSQL
 - JWT Authentication

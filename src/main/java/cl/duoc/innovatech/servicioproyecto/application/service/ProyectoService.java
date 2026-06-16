@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
+import cl.duoc.innovatech.servicioproyecto.application.exception.ProyectoNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +40,30 @@ public class ProyectoService {
         return repository.findByEstado(estado).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }
+
+    public ProyectoResponse obtenerPorId(Long id) {
+        Proyecto proyecto = repository.findById(id)
+                .orElseThrow(() -> new ProyectoNotFoundException(id));
+        return mapToResponse(proyecto);
+    }
+
+    public ProyectoResponse actualizar(Long id, ProyectoRequest request) {
+        Proyecto existente = repository.findById(id)
+                .orElseThrow(() -> new ProyectoNotFoundException(id));
+
+        existente.setNombre(request.getNombre());
+        existente.setDescripcion(request.getDescripcion());
+        existente.setResponsableId(request.getResponsableId());
+
+        Proyecto actualizado = repository.save(existente);
+        return mapToResponse(actualizado);
+    }
+
+    public void eliminar(Long id) {
+        Proyecto existente = repository.findById(id)
+                .orElseThrow(() -> new ProyectoNotFoundException(id));
+        repository.delete(existente);
     }
 
     private ProyectoResponse mapToResponse(Proyecto proyecto) {

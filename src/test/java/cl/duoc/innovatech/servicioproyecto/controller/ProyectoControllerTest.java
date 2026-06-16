@@ -119,6 +119,7 @@ class ProyectoControllerTest {
         mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/api/proyectos/1"))
                 .andExpect(status().isNoContent());
     }
+    
 
     @Test
     @DisplayName("testEliminarProyectoNoEncontradoRetornaCuatroCientosCuatro")

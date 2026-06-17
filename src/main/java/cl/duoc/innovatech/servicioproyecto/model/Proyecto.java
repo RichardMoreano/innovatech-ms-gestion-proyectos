@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Table(name = "proyectos")
 @Data
-@NoTitle
 @NoArgsConstructor
 @AllArgsConstructor
 public class Proyecto {
@@ -22,5 +21,5 @@ public class Proyecto {
     private String descripcion;
 
     @Column(nullable = false, length = 50)
-    private String estado; // Ejemplo: "PLANIFICADO", "EN_PROGRESO", "FINALIZADO"
+    private String estado;
 }

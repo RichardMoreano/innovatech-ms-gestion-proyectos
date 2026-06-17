@@ -1,30 +1,50 @@
 package cl.duoc.innovatech.servicioproyecto.controller;
 
+import cl.duoc.innovatech.servicioproyecto.dto.ProyectoRequestDTO;
+import cl.duoc.innovatech.servicioproyecto.dto.ProyectoResponseDTO;
+import cl.duoc.innovatech.servicioproyecto.service.ProyectoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v2/proyectos")
 public class ProyectoController {
 
+    private final ProyectoService proyectoService;
+
+    public ProyectoController(ProyectoService proyectoService) {
+        this.proyectoService = proyectoService;
+    }
+
     @GetMapping
-    public ResponseEntity<List<Map<String, Object>>> listarProyectos() {
-        List<Map<String, Object>> proyectos = new ArrayList<>();
-        
-        // Datos mockeados de prueba para validar que el circuito completo funciona
-        Map<String, Object> p1 = Map.of(
-            "id", 1,
-            "nombre", "Plataforma Core V2",
-            "descripcion", "Migración completa",
-            "estado", "EN_PROGRESO"
-        );
-        proyectos.add(p1);
-        
-        return ResponseEntity.ok(proyectos);
+    public ResponseEntity<List<ProyectoResponseDTO>> obtenerTodos() {
+        return ResponseEntity.ok(proyectoService.obtenerTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProyectoResponseDTO> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(proyectoService.obtenerPorId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<ProyectoResponseDTO> crear(@Valid @RequestBody ProyectoRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(proyectoService.crear(request));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProyectoResponseDTO> actualizar(
+            @PathVariable Long id, 
+            @Valid @RequestBody ProyectoRequestDTO request) {
+        return ResponseEntity.ok(proyectoService.actualizar(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        proyectoService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }

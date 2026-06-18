@@ -10,4 +10,8 @@ public interface ProyectoService {
     ProyectoResponseDTO crear(ProyectoRequestDTO request);
     ProyectoResponseDTO actualizar(Long id, ProyectoRequestDTO request);
     void eliminar(Long id);
+    List<Long> obtenerRecursosIds(Long id);
+    ProyectoResponseDTO actualizarEstadoInterno(Long id, String estado);
+    void vincularRecurso(Long id, Long recursoId);
+    void desvincularRecurso(Long id, Long recursoId);
 }

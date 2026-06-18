@@ -47,4 +47,26 @@ public class ProyectoController {
         proyectoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/recursos-ids")
+    public ResponseEntity<List<Long>> obtenerRecursosIdsPorProyecto(@PathVariable Long id) {
+        return ResponseEntity.ok(proyectoService.obtenerRecursosIds(id));
+    }
+
+    @PutMapping("/{id}/estado-interno")
+    public ResponseEntity<ProyectoResponseDTO> actualizarEstadoInterno(@PathVariable Long id, @RequestParam String estado) {
+        return ResponseEntity.ok(proyectoService.actualizarEstadoInterno(id, estado));
+    }
+
+    @PostMapping("/{id}/vincular")
+    public ResponseEntity<Void> vincularRecurso(@PathVariable Long id, @RequestParam Long recursoId) {
+        proyectoService.vincularRecurso(id, recursoId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}/desvincular")
+    public ResponseEntity<Void> desvincularRecurso(@PathVariable Long id, @RequestParam Long recursoId) {
+        proyectoService.desvincularRecurso(id, recursoId);
+        return ResponseEntity.noContent().build();
+    }
 }
